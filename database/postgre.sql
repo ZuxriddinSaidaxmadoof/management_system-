@@ -24,7 +24,8 @@ CREATE TABLE users(
     created_by int default null,
     last_updated_by int default null,
     constraint fk_company_id foreign key(company_id) references companies(id),
-    constraint fk_created_by_id foreign key(created_by) references users(id)
+    constraint fk_created_by_id foreign key(created_by) references users(id),
+    constraint fk_last_updated_by_id foreign key(last_updated_by) references users(id)
 );
 
 CREATE TABLE tasks(
@@ -34,9 +35,16 @@ CREATE TABLE tasks(
     company_id int NOT NULL,
     parent_id int DEFAULT NULL,
     day INT NOT NULL CHECK(day > 0),
+    created_at timestamp default CURRENT_TIMESTAMP,
+    last_updated_at timestamp default CURRENT_TIMESTAMP,
+    created_by int not null,
+    last_updated_by int not null,
     constraint fk_company_id foreign key(company_id) references companies(id),
-    constraint fk_parent_id foreign key(parent_id) references tasks(id)
+    constraint fk_parent_id foreign key(parent_id) references tasks(id),
+    constraint fk_created_by_id foreign key(created_by) references users(id),
+    constraint fk_last_updated_by_id foreign key(last_updated_by) references users(id)
 );
+
 
 CREATE TABLE user_tasks(
     id SERIAL PRIMARY KEY,
@@ -48,8 +56,14 @@ CREATE TABLE user_tasks(
     ended_date date default null,
     status status_type not null default 'process',
     day INT NOT NULL CHECK(day > 0),
+    created_at timestamp default CURRENT_TIMESTAMP,
+    last_updated_at timestamp default CURRENT_TIMESTAMP,
+    created_by int not null,
+    last_updated_by int not null,
     constraint fk_user_id foreign key(user_id) references users(id),
-    constraint fk_task_id foreign key(task_id) references tasks(id)
+    constraint fk_task_id foreign key(task_id) references tasks(id),
+    constraint fk_created_by_id foreign key(created_by) references users(id),
+    constraint fk_last_updated_by_id foreign key(last_updated_by) references users(id)
 );
 
 insert into user_tasks(user_id, task_id, start_at, end_at, day)values(1,1,'2000-12-02','2000-12-02', 23);

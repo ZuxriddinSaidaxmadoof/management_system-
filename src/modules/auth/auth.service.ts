@@ -1,11 +1,11 @@
-import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { IAuthService, ILoginData } from './interfaces/auth.service';
 import { ResData } from 'src/lib/resData';
 import { LoginDto, RegisterDto } from './dto/auth.dto';
-import { IUserService } from '../user/interfaces/user.service';
 import { LoginOrPasswordWrongException, LoginAlreadyExistException } from './exception/auth.exception';
 import { JwtService } from '@nestjs/jwt';
-import { IUserRepository } from '../user/interfaces/user.repository';
+import { IUserService } from '../users/interfaces/user.service';
+import { IUserRepository } from '../users/interfaces/user.repository';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -37,15 +37,15 @@ export class AuthService implements IAuthService {
   }
 
   async register(dto: RegisterDto): Promise<ResData<ILoginData>> {
-    const { data: foundUser } = await this.userService.findOneByLogin(
-      dto.login,
-    );
+    // const foundUser = await this.userRepository.findOneByLogin(
+    //   dto.login,
+    // );
 
-    if (foundUser) {
-      throw new LoginAlreadyExistException();
-    }
+    // if (foundUser) {
+    //   throw new BadRequestException("This login already exist");
+    // }
 
-    const createdUser = await this.userRepository.insert(dto);
+    const {data: createdUser} = await this.userService.create(dto);
 
     const token = await this.jwtService.signAsync({ id: createdUser.id});
 

@@ -6,7 +6,7 @@ import { UserTasksModule } from './modules/user-tasks/user-tasks.module';
 import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
-  imports: [UsersModule, TasksModule, CompaniesModule, UserTasksModule, AuthModule],
+  imports: [AuthModule, UsersModule, TasksModule, CompaniesModule, UserTasksModule],
   controllers: [],
   providers: [],
 })

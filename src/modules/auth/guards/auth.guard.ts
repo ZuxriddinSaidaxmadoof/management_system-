@@ -7,8 +7,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { IUserService } from 'src/modules/user/interfaces/user.service';
 import { config } from 'src/common/config';
+import { IUserService } from 'src/modules/users/interfaces/user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate {
         secret: config.jwtSecretKey,
       });
 
-      const { data: foundUser } = await this.userService.findOneById(
+      const { data: foundUser } = await this.userService.findOne(
         payload.id,
       );
 

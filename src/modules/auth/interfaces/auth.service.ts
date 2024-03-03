@@ -1,5 +1,5 @@
 import { ResData } from 'src/lib/resData';
-import { UserEntity } from 'src/modules/user/entities/user.entity';
+import { UserEntity } from 'src/modules/users/entities/user.entity';
 import { LoginDto, RegisterDto } from '../dto/auth.dto';
 
 export interface ILoginData {

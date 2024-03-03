@@ -5,15 +5,15 @@ import { UpdateCompanyDto } from '../dto/update-company.dto';
 import { CompanyEntity } from '../entities/company.entity';
 
 export interface ICompanyService {
-  findOneById(id: ID): Promise<ResData<CompanyEntity>>;
   findAll(): Promise<ResData<Array<CompanyEntity>>>;
   create(
     dto: CreateCompanyDto
-    // currentUser: UserEntity
   ): Promise<ResData<CompanyEntity>>;
+  findOne(id: ID): Promise<ResData<CompanyEntity>>;
   update(
     dto: UpdateCompanyDto,
     id: number,
   ): Promise<ResData<CompanyEntity>>;
   remove(id: ID): Promise<ResData<CompanyEntity>>;
+  // findOneByName(name: string): Promise<ResData<CompanyEntity>>;
 }

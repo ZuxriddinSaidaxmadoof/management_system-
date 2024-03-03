@@ -1,11 +1,11 @@
 import { ID } from 'src/common/types/type';
-import { ICompanRepository } from './interfaces/company.repository';
+import { ICompanyRepository } from './interfaces/company.repository';
 import { Postgres } from 'src/lib/pg';
 import { CompanyEntity } from './entities/company.entity';
 
 export class CompanyRepository
   extends Postgres
-  implements ICompanRepository
+  implements ICompanyRepository
 {
   async findOneByName(name: string): Promise<CompanyEntity | undefined> {
     return await this.fetch<CompanyEntity, string>(
@@ -24,7 +24,7 @@ export class CompanyRepository
 
   async update(entity: CompanyEntity, id: number): Promise<CompanyEntity> {
     return await this.fetch<CompanyEntity, string | number>(
-      'update companies set name = $1 where id = $7 returning *',
+      'update companies set name = $1 where id = $2 returning *',
       entity.name,
       id
     );
