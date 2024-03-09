@@ -1,6 +1,9 @@
 # Management system
 
-### This project is a company management system and you can manage your company through this application and you can assign tasks to employees, this app functions similarly to Trello, allowing you to create, assign tasks effortlessly, Assign tasks to specific employees, set deadlines and When employees complete their tasks, they change the task type to done
+<b>
+This project is a company management system and you can manage your company through this application and you can assign tasks to employees, this app functions similarly to Trello, allowing you to create, assign tasks effortlessly, Assign tasks to specific employees, set deadlines and When employees complete their tasks, they change the task type to done
+
+</b>
 
 
 
