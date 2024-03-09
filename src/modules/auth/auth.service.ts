@@ -6,6 +6,7 @@ import { LoginOrPasswordWrongException, LoginAlreadyExistException } from './exc
 import { JwtService } from '@nestjs/jwt';
 import { IUserService } from '../users/interfaces/user.service';
 import { IUserRepository } from '../users/interfaces/user.repository';
+import { BcryptHashing } from 'src/lib/bcrypt';
 
 @Injectable()
 export class AuthService implements IAuthService {
@@ -19,12 +20,12 @@ export class AuthService implements IAuthService {
     const { data: foundUser } = await this.userService.findOneByLogin(
       dto.login,
     );
+console.log("user", foundUser);
 
-    if (!foundUser) {
-      throw new LoginOrPasswordWrongException();
-    }
+    const checkPassword = await BcryptHashing.compare(dto.password, foundUser.password) 
+console.log("check", checkPassword);
 
-    if (foundUser.password !== dto.password) {
+    if (!checkPassword) {
       throw new LoginOrPasswordWrongException();
     }
 
@@ -37,15 +38,11 @@ export class AuthService implements IAuthService {
   }
 
   async register(dto: RegisterDto): Promise<ResData<ILoginData>> {
-    // const foundUser = await this.userRepository.findOneByLogin(
-    //   dto.login,
-    // );
-
-    // if (foundUser) {
-    //   throw new BadRequestException("This login already exist");
-    // }
+    
+    // dto.password = await BcryptHashing.hash(dto.password);
 
     const {data: createdUser} = await this.userService.create(dto);
+
 
     const token = await this.jwtService.signAsync({ id: createdUser.id});
 

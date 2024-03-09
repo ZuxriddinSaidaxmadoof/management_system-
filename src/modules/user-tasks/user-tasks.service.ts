@@ -1,26 +1,39 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { ResData } from 'src/lib/resData';
 import { CreateUserTaskDto } from './dto/create-user-task.dto';
 import { UpdateUserTaskDto } from './dto/update-user-task.dto';
+import { UserTaskEntity } from './entities/user-task.entity';
+import { IUserTaskRepository } from './interfaces/userTask.repository';
+import { IUserTaskService } from './interfaces/userTask.service';
 
 @Injectable()
-export class UserTasksService {
-  create(createUserTaskDto: CreateUserTaskDto) {
-    return 'This action adds a new userTask';
-  }
+export class UserTasksService implements IUserTaskService {
+  constructor(
+  @Inject("IUserTaskRepository") private readonly repository: IUserTaskRepository
+  ){}
 
-  findAll() {
-    return `This action returns all userTasks`;
+  
+  findAll(): Promise<ResData<UserTaskEntity[]>> {
+    throw new Error('Method not implemented.');
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} userTask`;
+  findOne(id: number): Promise<ResData<UserTaskEntity>> {
+    throw new Error('Method not implemented.');
   }
-
-  update(id: number, updateUserTaskDto: UpdateUserTaskDto) {
-    return `This action updates a #${id} userTask`;
+  getByUserId(id: number): Promise<ResData<UserTaskEntity[]>> {
+    throw new Error('Method not implemented.');
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} userTask`;
+  update(dto: UpdateUserTaskDto, id: number): Promise<ResData<UserTaskEntity>> {
+    throw new Error('Method not implemented.');
+  }
+  remove(id: number): Promise<ResData<UserTaskEntity>> {
+    throw new Error('Method not implemented.');
+  }
+  findOneByName(name: string): Promise<ResData<UserTaskEntity>> {
+    throw new Error('Method not implemented.');
+  }
+  async create(createUserTaskDto: CreateUserTaskDto) {
+    const entity = new UserTaskEntity(createUserTaskDto);
+    const data = await this.repository.insert(entity);
+    return new ResData("user-task created", 201, data);
   }
 }

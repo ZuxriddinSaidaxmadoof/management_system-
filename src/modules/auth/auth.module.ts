@@ -5,6 +5,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { config } from 'src/common/config';
 import { UsersService } from '../users/users.service';
 import { UserRepository } from '../users/user.repository';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { UserRepository } from '../users/user.repository';
       global: true,
       secret: config.jwtSecretKey,
       signOptions: { expiresIn: config.jwtExpiredIn },
-    }),
+    })
   ],
   controllers: [AuthController],
   providers: [

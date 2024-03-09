@@ -58,8 +58,11 @@ export class UserRepository
     );
   }
 
-  async findAll(): Promise<Array<UserEntity>> {
-    return await this.fetchAll<UserEntity>('select * from users');
+  async findAll(companyId?: number): Promise<Array<UserEntity>> {
+    if(companyId){
+      return await this.fetchAll<UserEntity, number>('select * from users where company_id = $1', companyId);
+    }
+    return await this.fetchAll<UserEntity, number>('select * from users');
   }
 
   async findOneById(id: ID): Promise<UserEntity> {

@@ -4,3 +4,9 @@ export enum RoleEnum {
   MANAGER = 'manager',
   WORKER = 'worker'
 }
+
+export enum StatusEnum {
+  PROCESS = 'process',
+  DONE = 'done',
+  TOOK = 'took'
+}

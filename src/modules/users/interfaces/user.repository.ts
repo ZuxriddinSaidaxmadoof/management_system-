@@ -7,5 +7,5 @@ export interface IUserRepository {
   findOneById(id: ID): Promise<UserEntity>;
   findOneByLogin(login: string): Promise<UserEntity | undefined>;
   remove(id: ID): Promise<UserEntity | undefined>;
-  findAll(): Promise<Array<UserEntity>>;
+  findAll(companyId?: number): Promise<Array<UserEntity>>;
 }

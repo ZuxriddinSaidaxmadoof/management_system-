@@ -5,7 +5,7 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserEntity } from '../entities/user.entity';
 
 export interface IUserService {
-  findAll(): Promise<ResData<Array<UserEntity>>>;
+  findAll(companyId?: number, currentUser?: UserEntity): Promise<ResData<Array<UserEntity>>>;
   create(
     dto: CreateUserDto
   ): Promise<ResData<UserEntity>>;

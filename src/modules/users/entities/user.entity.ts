@@ -17,7 +17,7 @@ export class UserEntity {
         this.login = dto.login;
         this.password = dto.password;
         this.full_name = dto.full_name;
-        this.company_id = dto.company_id || null;
+        this.company_id = dto.company_id;
         this.role = dto.role || "worker";
         this.created_by = null;
         this.last_updated_at = new Date();
